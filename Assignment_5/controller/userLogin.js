@@ -3,13 +3,16 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 require("dotenv").config();
 
-const passwordValidation = (passwordEnteredByUSer, hash, res, email) => {
-  bcrypt.compare(passwordEnteredByUSer, hash, function (error, isMatch) {
+const passwordValidation = (passwordEnteredByUser, hash, res, email) => {
+  console.log(hash);
+  bcrypt.compare(passwordEnteredByUser, hash, function (error, isMatch) {
+    console.log(passwordEnteredByUser, hash, isMatch);
     if (error) {
       res.status(404).send(error);
     } else if (!isMatch) {
       res.status(401).send("password mismatch");
     } else {
+      console.log("In else part");
       const id = new Date().getDate();
       const token = jwt.sign({ id, email }, process.env.JWT_SECRET, {
         expiresIn: "30d",
