@@ -24,7 +24,7 @@ router
   .get(authMiddleware, getAllUsers)
   .post(authMiddleware, createUser);
 
-//delete user
+//update and delete  user
 router
   .route("/posts/:id")
   .put(authMiddleware, editUser)
